@@ -1,0 +1,94 @@
+help: False
+show_model: False
+base_path: /HOME/scz0831/run/3d/TLEE/ckpt
+train_mode: test # choice = [1, 1.1, 2, test]
+test_path: base_ucf101_mp_vgg16 # 文件夹名即可 训练模式2, test都需要
+b: '1e-3'
+
+# checkpoint
+resume: False
+resume_path: 
+seed: 2
+##################
+data:
+  name: ucf101
+
+  path_frame: /HOME/scz0831/run/3d/UCF101/jpg/  # set the dataset dir
+  path_split: /HOME/scz0831/run/3d/UCF101/file_list/ucf101_rgb_train_split_1.txt
+  path_label: /HOME/scz0831/run/3d/UCF101/file_list/ucf101_rgb_train_split_1.txt
+  path_classid: /HOME/scz0831/run/3d/UCF101/labels/classInd.txt
+
+  preprocessing:
+    to_tensor: True
+    resize: 224
+    crop_center: 224
+    normalize:
+      mean: [0.43216, 0.394666, 0.37645]
+      std: [0.22803, 0.22145, 0.216989]
+
+  preprocessing_label:
+    video_multihot_labels: ""
+    one_hot_encoding: 101
+
+  num_frames: 10
+  num_workers: 6
+  shuffle: False
+data_val:
+  name: ucf101
+
+  path_frame: /HOME/scz0831/run/3d/UCF101/jpg/  # set the dataset dir
+  path_split: /HOME/scz0831/run/3d/UCF101/file_list/ucf101_rgb_val_split_1.txt
+  path_label: /HOME/scz0831/run/3d/UCF101/file_list/ucf101_rgb_val_split_1.txt
+  path_classid: /HOME/scz0831/run/3d/UCF101/labels/classInd.txt
+
+  preprocessing:
+    to_tensor: True
+    resize: 224
+    crop_center: 224
+    normalize:
+      mean: [0.43216, 0.394666, 0.37645]
+      std: [0.22803, 0.22145, 0.216989]
+
+  preprocessing_label:
+    video_multihot_labels: ""
+    one_hot_encoding: 101
+
+  num_frames: 10
+  num_workers: 6
+  shuffle: False
+###################
+model:
+  type: ts
+  epochs: 10
+  useLRSchedule: True
+  schedule: [10, 20]  # not enable if useLRSchedule is False
+
+  # branch settings
+  name: vgg16 # if changes this, please check output_dim
+  # 2048: ResNet50
+  # 512: ResNet18, ResNet34, vgg16
+  # 1024:bn_inception
+  # 1280:mobilenetv2
+  # 1536:efficient_b3
+  output_dim: [512] 
+  branch_num: 0
+  branch_scale: 1 # the channel reduction ratio
+  crm_num: 3      # #crm
+  exit_thresh: 0.4
+
+  useFeatureFunc: mp # [frm, afrm, ema, mp, ap, na, none]
+  useGateFunc: gm # [eg, gm] 
+  
+  first_threshold: 0.99
+  single_frame_mac: [4.754, 9.389, 14.018, 15.531]
+  backbone:
+    type: 2d
+    pretrained: True
+    name: a.a
+    requires_grad: True
+    truncate_modules: -1  # index indicates up until which layer to keep modules, i.e. -1 removes the classifier.
+
+  input_order8: [3, 6, 7, 0, 4, 5, 2, 1] #n8
+  input_order10: [5, 0, 9, 2, 7, 4, 6, 3, 8, 1] #n10
+  input_order16: [9, 8, 6, 3, 15, 1, 0, 12, 14, 2, 10, 7, 13, 11, 4, 5] # n16
+  num_classes: 101

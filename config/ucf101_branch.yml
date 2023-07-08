@@ -1,0 +1,73 @@
+help: False
+
+checkpoint:
+  init: resources/checkpoints/minikinetics_checkpoint_19.7gmac.pth
+train_mode: 2 # choice = [1, 2, test]
+test_path: 2_2021_11_02 17_36_34
+b: '2e-3'
+##################
+data:
+  name: ucf101
+
+  path_frame: /home/wql/3d/UCF101/jpg/  # set the dataset dir
+  path_split: /home/wql/3d/UCF101/file_list/ucf101_rgb_train_split_1.txt
+  path_label: /home/wql/3d/UCF101/file_list/ucf101_rgb_train_split_1.txt
+  path_classid: /home/wql/3d/UCF101/labels/classInd.txt
+
+  preprocessing:
+    to_tensor: True
+    resize: 224
+    crop_center: 224
+    normalize:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+
+  preprocessing_label:
+    video_multihot_labels: ""
+    one_hot_encoding: 101
+
+  num_frames: 10
+  num_workers: 8
+  shuffle: False
+data_val:
+  name: ucf101
+
+  path_frame: /home/wql/3d/UCF101/jpg/  # set the dataset dir
+  path_split: /home/wql/3d/UCF101/file_list/ucf101_rgb_val_split_1.txt
+  path_label: /home/wql/3d/UCF101/file_list/ucf101_rgb_val_split_1.txt
+  path_classid: /home/wql/3d/UCF101/labels/classInd.txt
+
+  preprocessing:
+    to_tensor: True
+    resize: 224
+    crop_center: 224
+    normalize:
+      mean: [0.485, 0.456, 0.406]
+      std: [0.229, 0.224, 0.225]
+
+  preprocessing_label:
+    video_multihot_labels: ""
+    one_hot_encoding: 101
+
+  num_frames: 10
+  num_workers: 8
+  shuffle: False
+###################
+model:
+  first_threshold: 0.99
+  epochs: 20
+  backbone:
+    type: 2d
+    name: branch.resnet50.3
+    pretrained: True
+    requires_grad: True
+    truncate_modules: -1  # index indicates up until which layer to keep modules, i.e. -1 removes the classifier.
+    output_dim: [2048]     # branches [3,]# 2048: ResNet50 512: ResNet18, ResNet34
+
+  pooling:
+    name: max
+
+  name: adaptive
+  adaptive:
+    input_order: [5, 0, 9, 2, 7, 4, 6, 3, 8, 1] #n10
+  num_classes: 101
