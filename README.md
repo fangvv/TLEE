@@ -6,22 +6,22 @@ This is the source code for our paper: **TLEE: Temporal-wise and Layer-wise Earl
 
 > TLEE：用于边缘设备上高效视频识别的时间和层早期退出网络
 
-This work will be published by IEEE IoTJ (IEEE Internet of Things Journal). Click [here](https://doi.org/10.1109/JIOT.2023.3293506) for our paper.
+This work was published by IEEE IoTJ (IEEE Internet of Things Journal). Click [here](https://doi.org/10.1109/JIOT.2023.3293506) for our paper.
 
 ## Required software
 
 PyTorch
 
 ## Citation
-    @ARTICLE{10176276,
+    @@ARTICLE{10176276,
     author={Wang, Qingli and Fang, Weiwei and Xiong, Neal N.},
-    journal={IEEE Internet of Things Journal},
-    title={TLEE: Temporal-wise and Layer-wise Early Exiting Network for Efficient Video Recognition on Edge Devices},
-    year={2023},
-    volume={},
-    number={},
-    pages={1-1},
-    doi={10.1109/JIOT.2023.3293506}}
+    journal={IEEE Internet of Things Journal}, 
+    title={TLEE: Temporal-Wise and Layer-Wise Early Exiting Network for Efficient Video Recognition on Edge Devices}, 
+	year={2024},
+	volume={11},
+	number={2},
+	pages={2842-2854},
+	doi={10.1109/JIOT.2023.3293506}}
 
 
 ## Contact
