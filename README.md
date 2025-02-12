@@ -13,7 +13,7 @@ This work was published by IEEE IoTJ (IEEE Internet of Things Journal). Click [h
 PyTorch
 
 ## Citation
-    @@ARTICLE{10176276,
+    @ARTICLE{10176276,
     author={Wang, Qingli and Fang, Weiwei and Xiong, Neal N.},
     journal={IEEE Internet of Things Journal}, 
     title={TLEE: Temporal-Wise and Layer-Wise Early Exiting Network for Efficient Video Recognition on Edge Devices}, 
