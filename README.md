@@ -182,6 +182,10 @@ bash cloud_time_test.sh
 | `model` | `useGateFunc` | Enable / disable the temporal gating module |
 | `checkpoint` | `init` | Path to pretrained backbone weights |
 
+## ⭐ Star
+
+**If you find this work useful for your research, please consider giving this repository a ⭐ star. Your support is greatly appreciated!**
+
 ## Citation
 
 If you find TLEE useful or relevant to your project and research, please kindly cite our paper:
